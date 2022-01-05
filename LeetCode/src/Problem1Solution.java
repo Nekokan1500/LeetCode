@@ -20,8 +20,12 @@ public class Problem1Solution {
         for (int j = 0; j < nums.length; j++) {
         	Integer y = Integer.valueOf(target - nums[j]);
         	if (map1.containsValue(y)) {
-        		pair[0] = j;
-        		pair[1] = map2.get(y);
+        		int index = map2.get(y);
+        		if (index != j) {
+        			pair[0] = j;
+        			pair[1] = map2.get(y);
+        			break;
+        		}
         	}
         }
         return pair;	
@@ -29,8 +33,8 @@ public class Problem1Solution {
 	
 	public static void main(String[] args) {
 		Problem1Solution s = new Problem1Solution();
-		int[] input = {5,4,2,7,1,5,3,6};
-		int[] result = s.twoSum(input,11);
+		int[] input = {3,2,4};
+		int[] result = s.twoSum(input,6);
 		System.out.println("[" + result[0] + "," + result[1]+"]");
 		// Result is [7,5]
 	}
