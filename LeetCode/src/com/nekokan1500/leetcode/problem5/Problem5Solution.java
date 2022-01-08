@@ -27,8 +27,14 @@ public class Problem5Solution {
 		
 		// check if any substring of size 2 is palindrome or not
 		for (int i = 0; i < n-1; i++) {
-			if (s.charAt(i) == s.charAt(i+1))
+			if (s.charAt(i) == s.charAt(i+1)) {
 				subs[i][i+2] = 1;
+				if (longest < 2) {
+					longest = 2;
+					start = i;
+					end = i + 2;
+				}
+			}
 			else
 				subs[i][i+2] = 0;
 		}
@@ -36,35 +42,25 @@ public class Problem5Solution {
 		// check other substrings
 		for (int i = n-3; i >= 0; i--) {
 			for (int j = i+3; j < n+1; j++) {
-				char left = s.charAt(i);
-				char right = s.charAt(j-1);
-				if (subs[i+1][j-1] == 1 && left == right) 
+				if (subs[i+1][j-1] == 1 && s.charAt(i) == s.charAt(j-1)) {
 					subs[i][j] = 1;
-				else
-					subs[i][j] = 0;
-			}
-		}
-		
-		// find the longest substring
-		for (int i = n-1; i >= 0; i--) {
-			for (int j = n; j >= 1; j--) {
-				if (subs[i][j] == 1) {
 					if (j - i > longest) {
 						longest = j - i;
 						start = i;
 						end = j;
 					}
 				}
+				else
+					subs[i][j] = 0;
 			}
 		}
-		
 		return s.substring(start,end);
     }
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Problem5Solution s = new Problem5Solution();
-		System.out.println(s.longestPalindrome("aacabdkacaa"));
+		System.out.println(s.longestPalindrome("cbbd"));
 	}
 
 }
