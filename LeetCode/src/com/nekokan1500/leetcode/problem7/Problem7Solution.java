@@ -16,8 +16,6 @@ public class Problem7Solution {
 			i++;
 		}
 		
-		if (i == 1) return x;
-		
 		// check integer overflow or underflow
 		if (Math.abs(x % 10) > 2 && i >= 10){
 			return 0;
@@ -44,7 +42,7 @@ public class Problem7Solution {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Problem7Solution s = new Problem7Solution();
-		System.out.println(s.reverse(-214748364));
+		System.out.println(s.reverse(5));
 		// output is -463847412
 	}
 
