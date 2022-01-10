@@ -34,37 +34,39 @@ public class Problem8Solution {
 			else break;
 		}
 		
-		String numString_cleaned = numString.substring(i);
-		
-		if ((numString_cleaned.length() > 10 && sign) ||
-			(numString_cleaned.length() == 10 && numString_cleaned.charAt(0) > 50 && sign)) 
-			return Integer.MAX_VALUE;
-		if ((numString_cleaned.length() > 10 && !sign) ||
-			(numString_cleaned.length() == 10 && numString_cleaned.charAt(0) > 50 && !sign))
-			return -Integer.MAX_VALUE-1;
+		numString = numString.substring(i);
 		
 		int result = 0;
 		
-		for (int j = 0; j < numString_cleaned.length(); j++) {
-			int next;
-			if (sign)
-				next = (numString_cleaned.charAt(j) - 48) * (int)Math.pow(10,(numString_cleaned.length() - j - 1));
-			else
-				next = -(numString_cleaned.charAt(j) - 48) * (int)Math.pow(10,(numString_cleaned.length() - j - 1));
-			if ((next <= Integer.MAX_VALUE - result && sign) ||
-				(next >= -Integer.MAX_VALUE - 1 - result && !sign))
-				result += next;
-			else {
+		for (int j = 0; j < numString.length(); j++) {
+			// if current result is less than 214748364
+			if (result < Integer.MAX_VALUE/10) {
+				result = result*10 + numString.charAt(j) - 48;
+			}
+			// if current result is larger than 214748364
+			else if (result > Integer.MAX_VALUE/10) {
 				if (sign) return Integer.MAX_VALUE;
-				else return -Integer.MAX_VALUE-1;
+				else return Integer.MIN_VALUE;
+			}
+			// if current result is equal to 214748364
+			else {
+				// if next number is 0~7
+				if (numString.charAt(j) <= 55)
+					result = result*10 + (numString.charAt(j) - 48);
+				// if next number is 8
+				else if (numString.charAt(j) >= 56) {
+					if (sign) return Integer.MAX_VALUE;
+					else return Integer.MIN_VALUE;
+				}	
 			}
 		}
 		
-		return result;
+		if (sign) return result;
+		else return -1*result;
     }
 	
 	public static void main(String[] args) {
 		Problem8Solution s = new Problem8Solution();
-		System.out.println(s.myAtoi("2147483646"));
+		System.out.println(s.myAtoi("-2147483646"));
 	}
 }
