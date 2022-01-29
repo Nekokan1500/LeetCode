@@ -1,4 +1,4 @@
-package com.nekokan1500.leetcode.common;
+package com.nekokan1500.leetcode.problem0025;
 
 public class ListNode {
 	 int val;
